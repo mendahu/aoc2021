@@ -16,3 +16,7 @@ To get the solutions:
 ## Day 1 Part 1
 
 Call method `@sub.report_depth_increases_by_group_size(1)` to produce the answer.
+
+## Day 1 Part 2
+
+Call method `@sub.report_depth_increases_by_group_size(3)` to produce the answer.
