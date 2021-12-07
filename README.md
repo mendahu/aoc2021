@@ -10,5 +10,9 @@ To get the solutions:
 
 1. Clone the repository
 2. Run `irb -r ./start.rb` to enter the Ruby shell.
-3. Create a new instance of the Submarine class with `sub = Submarine.new`
+3. Access the automatically created Submarine class instance via the variable `@sub`.
 4. Follow the steps below to interact
+
+## Day 1 Part 1
+
+Call method `@sub.report_depth_increases_by_group_size(1)` to produce the answer.
