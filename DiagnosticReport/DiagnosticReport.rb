@@ -14,20 +14,20 @@ class DiagnosticBit
     end
   end
 
-  def most_common
-    @zero > @one ? '0' : '1'
+  def most_common(override = 1)
+    @zero == @one ? override : @zero > @one ? '0' : '1'
   end
 
-  def least_common
-    @zero > @one ? '1' : '0'
+  def least_common(override = 1)
+    most_common(override) == '1' ? '0' : '1'
   end
 end
 
 class DiagnosticReport < DataLoader
   attr_reader :gamma_rate
   attr_reader :epsilon_rate
-  # attr_reader :oxygen_generator_rating
-  # attr_reader :co2_scrubber_rating
+  attr_reader :oxygen_generator_rating
+  attr_reader :co2_scrubber_rating
 
   def initialize(path)
     super
@@ -38,8 +38,8 @@ class DiagnosticReport < DataLoader
     @gamma_rate = @gamma_rate_binary.to_i(2)
     @epsilon_rate = @epsilon_rate_binary.to_i(2)
 
-    # @oxygen_generator_rating = 0
-    # @co2_scrubber_rating = 0
+    @oxygen_generator_rating = find_life_support_rating('o2').to_i(2)
+    @co2_scrubber_rating = find_life_support_rating('co2').to_i(2)
   end
 
   protected
@@ -55,7 +55,38 @@ class DiagnosticReport < DataLoader
 
     gamma_binary = counts.map { |counter| counter.most_common }
     epsilon_binary = counts.map { |counter| counter.least_common }
+
     [gamma_binary.join, epsilon_binary.join]
+  end
+
+  def find_life_support_rating(type)
+
+    if (type == 'o2')
+      override = "1"
+    elsif type == 'co2'
+      override = "1"
+    end
+
+    data = @@data
+    index = 0
+
+    while data.length > 1 do
+
+      bit = DiagnosticBit.new
+      data.each { |binary| bit.inc(binary[index]) }
+
+      if (type == 'o2')
+        bit_criteria = bit.most_common(override)
+      elsif type == 'co2'
+        bit_criteria = bit.least_common(override)
+      end
+
+      data = data.select { |binary| binary[index] == bit_criteria }
+      index += 1
+    end
+
+    data[0]
+
   end
 
 end

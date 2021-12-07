@@ -38,5 +38,10 @@ class Submarine
     diagnostics = @data['diagnostics']
     puts diagnostics.gamma_rate * diagnostics.epsilon_rate
   end
+  
+  def report_life_support_rating
+    diagnostics = @data['diagnostics']
+    puts diagnostics.oxygen_generator_rating * diagnostics.co2_scrubber_rating
+  end
 
 end

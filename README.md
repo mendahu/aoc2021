@@ -28,3 +28,4 @@ You can call this method with any group size as needed.
 ## Day 3
 
 1. Call method `@sub.report_power_consumption` to produce the answer
+1. Call method `@sub.report_life_support_rating` to produce the answer
