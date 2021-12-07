@@ -24,3 +24,7 @@ You can call this method with any group size as needed.
 
 1. Call method `@sub.report_new_position` to produce the answer.
 2. Call method `@sub.report_better_new_position` to produce the answer.
+
+## Day 3
+
+1. Call method `@sub.report_power_consumption` to produce the answer
