@@ -34,4 +34,9 @@ class Submarine
     puts "The submarine's new position is #{new_position}."
   end
 
+  def report_power_consumption
+    diagnostics = @data['diagnostics']
+    puts diagnostics.gamma_rate * diagnostics.epsilon_rate
+  end
+
 end
