@@ -15,8 +15,7 @@ class DeadReckoningReport < DataLoader
       groups.map(&:last).sum
     end
     forward, down, up = totals.values_at('forward', 'down', 'up')
-    new_position = forward * (down - up)
-    new_position
+    forward * (down - up)
   end
 
   def calculate_better_new_position
@@ -37,7 +36,7 @@ class DeadReckoningReport < DataLoader
       end
     end
 
-    return forward * depth
+    forward * depth
   end
 
 end
