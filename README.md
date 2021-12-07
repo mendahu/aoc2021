@@ -13,10 +13,7 @@ To get the solutions:
 3. Access the automatically created Submarine class instance via the variable `@sub`.
 4. Follow the steps below to interact
 
-## Day 1 Part 1
+## Day 1
 
-Call method `@sub.report_depth_increases_by_group_size(1)` to produce the answer.
-
-## Day 1 Part 2
-
-Call method `@sub.report_depth_increases_by_group_size(3)` to produce the answer.
+1. Call method `@sub.report_depth_increases_by_group_size(1)` to produce the answer.
+2. Call method `@sub.report_depth_increases_by_group_size(3)` to produce the answer.
