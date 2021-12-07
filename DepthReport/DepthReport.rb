@@ -7,19 +7,8 @@ class DepthReport < DataLoader
     @data = @@data.map(&:to_i)
   end
 
-  def read_increases_by_group_size(group_size) 
-    increases = 0
-    prev_line = nil
-
-    @data.each do |line|      
-        reading = line
-      
-        is_higher = prev_line && prev_line < reading
-      
-        increases += 1 if is_higher
-        prev_line = reading
-    end
-
-    increases
+  def read_increases_by_group_size(group_size)
+    # From @tckmn/polyaoc-2021 - I don't know why this works, it isn't summing the whole window?
+    @data[0...-group_size].zip(@data[group_size..-1]).count { |x,y| x<y }
   end
 end
