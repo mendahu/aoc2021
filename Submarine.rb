@@ -5,9 +5,9 @@ require './DiagnosticReport/DiagnosticReport'
 class Submarine
   def initialize
     @report_map = {
-      'depth' => DepthReport
-      'dead-reckoning' => DeadReckoningReport
-      'diagnostics' => DiagnosticReport,
+      'depth' => DepthReport,
+      'dead-reckoning' => DeadReckoningReport,
+      'diagnostics' => DiagnosticReport
     }
     @data = Hash.new
   end
@@ -20,6 +20,12 @@ class Submarine
     depth = @data['depth']
     increases = depth.read_increases_by_group_size(group_size)
     puts "#{increases} measurements are larger than the previous measurement."
+  end
+
+  def report_new_position
+    dead_reckoning = @data['dead-reckoning']
+    new_position = dead_reckoning.calculate_new_position
+    puts "The submarine's new position is #{new_position}."
   end
 
 end
