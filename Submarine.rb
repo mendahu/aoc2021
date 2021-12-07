@@ -28,4 +28,10 @@ class Submarine
     puts "The submarine's new position is #{new_position}."
   end
 
+  def report_better_new_position
+    dead_reckoning = @data['dead-reckoning']
+    new_position = dead_reckoning.calculate_better_new_position
+    puts "The submarine's new position is #{new_position}."
+  end
+
 end

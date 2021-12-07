@@ -18,4 +18,26 @@ class DeadReckoningReport < DataLoader
     new_position = forward * (down - up)
     new_position
   end
+
+  def calculate_better_new_position
+    forward = 0
+    aim = 0
+    depth = 0
+
+    @data.each do |dir, val|
+
+      case dir
+      when 'up'
+        aim -= val
+      when 'down'
+        aim += val
+      when 'forward'
+        forward += val
+        depth += aim * val
+      end
+    end
+
+    return forward * depth
+  end
+
 end

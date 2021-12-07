@@ -17,3 +17,10 @@ To get the solutions:
 
 1. Call method `@sub.report_depth_increases_by_group_size(1)` to produce the answer.
 2. Call method `@sub.report_depth_increases_by_group_size(3)` to produce the answer.
+
+You can call this method with any group size as needed.
+
+## Day 2
+
+1. Call method `@sub.report_new_position` to produce the answer.
+2. Call method `@sub.report_better_new_position` to produce the answer.
