@@ -8,14 +8,10 @@ class DepthReport < DataLoader
   end
 
   def read_increases_by_group_size(group_size) 
-    count_increases(@data, group_size)
-  end
-
-  def count_increases(data, group_size)
     increases = 0
     prev_line = nil
 
-    data.each do |line|      
+    @data.each do |line|      
         reading = line
       
         is_higher = prev_line && prev_line < reading
