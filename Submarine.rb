@@ -46,4 +46,9 @@ class Submarine
     puts diagnostics.oxygen_generator_rating * diagnostics.co2_scrubber_rating
   end
 
+  def validate_bingo_results
+    bingo = @data['bingo']
+    puts bingo.validate
+  end
+
 end
