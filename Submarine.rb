@@ -1,13 +1,15 @@
 require './DepthReport/DepthReport'
 require './DeadReckoningReport/DeadReckoningReport'
 require './DiagnosticReport/DiagnosticReport'
+require './BingoValidator/BingoValidator'
 
 class Submarine
   def initialize
     @report_map = {
       'depth' => DepthReport,
       'dead-reckoning' => DeadReckoningReport,
-      'diagnostics' => DiagnosticReport
+      'diagnostics' => DiagnosticReport,
+      'bingo' => BingoValidator
     }
     @data = Hash.new
   end
