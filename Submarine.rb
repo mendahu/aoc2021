@@ -48,7 +48,7 @@ class Submarine
 
   def validate_bingo_results
     bingo = @data['bingo']
-    puts bingo.validate
+    puts "The winning board's final score is #{bingo.score}!"
   end
 
 end

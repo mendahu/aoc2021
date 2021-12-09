@@ -1,63 +1,70 @@
 require './Utilities/DataLoader.rb'
 
 class Board
-  attr_reader :pulls
   def initialize(tiles)
-    @board = tiles
+    @rows = tiles
+    @cols = tiles.transpose
+    @board = @cols + @rows
     @pulls = []
   end
 
-  def get_row(index)
-    @boards[index]
+  def remove_num(num)
+    @board.each { |row_or_col| row_or_col.delete(num) }
   end
 
-  def get_column(index)
-    @boards.map { |x| x[index] }
-  end
-
-  def check_row_or_column(arr, num)
-    arr.include(num)
-  end
-
-  def check_board(num)
-    row = get_row(0)
-    check_row_or_column(row, num)
+  def is_there_a_winner
+    @board.include?([])
   end
 
   def record_pull(num)
     @pulls.push(num)
-    check_board(num)
+    remove_num(num)
+
+    is_there_a_winner
+  end
+
+  def get_score(num)
+    num.to_i * @rows.flatten.sum { |n| n.to_i }
   end
 end
 
 class BingoValidator < DataLoader
+  attr_reader :score
+
   def initialize(path)
     super
-
-    @data = [
-      "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1",
-      "",
-      "22 13 17 11  0",
-      "8  2 23  4 24",
-      "21  9 14 16  7",
-      "6 10  3 18  5",
-      "1 12 20 15 19",
-      "",
-      "3 15  0  2 22",
-      "9 18 13 17  5",
-      "19  8  7 25 23",
-      "20 11 10 24  4",
-      "14 21 16 12  6",
-      "",
-      "14 21 17 24  4",
-      "10 16 15  9 19",
-      "18  8 23 26 20",
-      "22 11 13  6  5",
-      "2  0 12  3  7",
-    ]
-
+    @data = @@data
     @pulls = get_pulls(@data)
     @boards = get_boards(@data)
+    @score = get_score
+  end
+
+  def get_score
+    has_winner = false
+    pull_index = 0
+    score = 0
+
+    while !has_winner && pull_index < @pulls.length do
+      board_index = 0
+
+      while !has_winner && board_index < @boards.length do
+        board = @boards[board_index]
+        pull = @pulls[pull_index]
+
+        result = board.record_pull(pull) 
+
+        if result
+          has_winner = true
+          score = board.get_score(pull)
+        else
+          board_index += 1
+        end
+      end
+
+      pull_index += 1
+    end
+    
+    score
   end
 
   def get_pulls(data)
@@ -77,16 +84,5 @@ class BingoValidator < DataLoader
     end
 
     return boards
-  end
-
-  def validate
-    @pulls.each do |pull| @boards.each 
-
-      do |board| 
-        result = board.record_pull(pull) 
-        if result == true return board
-      end 
-
-    end
   end
 end
