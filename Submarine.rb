@@ -2,6 +2,7 @@ require './DepthReport/DepthReport'
 require './DeadReckoningReport/DeadReckoningReport'
 require './DiagnosticReport/DiagnosticReport'
 require './BingoValidator/BingoValidator'
+require './VentMapper/VentMapper'
 
 class Submarine
   def initialize
@@ -9,7 +10,8 @@ class Submarine
       'depth' => DepthReport,
       'dead-reckoning' => DeadReckoningReport,
       'diagnostics' => DiagnosticReport,
-      'bingo' => BingoValidator
+      'bingo' => BingoValidator,
+      'vents' => VentMapper
     }
     @data = Hash.new
   end

@@ -7,3 +7,4 @@ require './Submarine'
 @sub.load_data('dead-reckoning', './data/02-dead-reckoning')
 @sub.load_data('diagnostics', './data/03-diagnostics')
 @sub.load_data('bingo', './data/04-bingo')
+@sub.load_data('vents', './data/05-vents')
