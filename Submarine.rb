@@ -46,9 +46,14 @@ class Submarine
     puts diagnostics.oxygen_generator_rating * diagnostics.co2_scrubber_rating
   end
 
-  def validate_bingo_results
+  def get_winning_bingo_score
     bingo = @data['bingo']
-    puts "The winning board's final score is #{bingo.score}!"
+    puts "The winning board's final score is #{bingo.winning_score}!"
+  end
+
+  def get_losing_bingo_score
+    bingo = @data['bingo']
+    puts "The winning board's final score is #{bingo.losing_score}!"
   end
 
 end

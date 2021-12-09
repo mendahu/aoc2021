@@ -6,21 +6,25 @@ class Board
     @cols = tiles.transpose
     @board = @cols + @rows
     @pulls = []
+    @is_active = true
   end
 
   def remove_num(num)
     @board.each { |row_or_col| row_or_col.delete(num) }
   end
 
-  def is_there_a_winner
-    @board.include?([])
-  end
-
   def record_pull(num)
     @pulls.push(num)
     remove_num(num)
 
-    is_there_a_winner
+    is_winner = @board.include?([])
+
+    if is_winner && @is_active
+      @is_active = false
+      return true
+    else
+      return false
+    end
   end
 
   def get_score(num)
@@ -29,42 +33,44 @@ class Board
 end
 
 class BingoValidator < DataLoader
-  attr_reader :score
+  attr_reader :winning_score, :losing_score
 
   def initialize(path)
     super
     @data = @@data
     @pulls = get_pulls(@data)
     @boards = get_boards(@data)
-    @score = get_score
+    @winning_score, @losing_score = get_score
   end
 
   def get_score
-    has_winner = false
+    winners = 0
     pull_index = 0
-    score = 0
+    winning_score = 0
+    losing_score = 0
 
-    while !has_winner && pull_index < @pulls.length do
+    while pull_index < @pulls.length do
       board_index = 0
 
-      while !has_winner && board_index < @boards.length do
+      while board_index < @boards.length do
         board = @boards[board_index]
         pull = @pulls[pull_index]
 
         result = board.record_pull(pull) 
 
         if result
-          has_winner = true
-          score = board.get_score(pull)
-        else
-          board_index += 1
+          winners += 1
+          winning_score = board.get_score(pull) if winners == 1
+          losing_score = board.get_score(pull) if winners == @boards.length
         end
+
+        board_index += 1
       end
 
       pull_index += 1
     end
     
-    score
+    [winning_score, losing_score]
   end
 
   def get_pulls(data)
